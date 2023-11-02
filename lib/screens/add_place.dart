@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spotspal/providers/user_places.dart';
+import 'package:spotspal/widgets/image_input.dart';
 
-class AddPlaceScreen extends StatefulWidget {
+class AddPlaceScreen extends ConsumerStatefulWidget {
   const AddPlaceScreen({super.key});
 
   @override
-  State<AddPlaceScreen> createState() {
+  ConsumerState<AddPlaceScreen> createState() {
     return _AddPlaceScreenState();
   }
 }
 
-class _AddPlaceScreenState extends State<AddPlaceScreen> {
+class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
   final titleController = TextEditingController();
+
+  void savePlace() {
+    final enteredTitle = titleController.text;
+
+    if (enteredTitle == null || enteredTitle.isEmpty) {
+      return;
+    }
+    ref.read(userPlacesProvider.notifier).addPlace(enteredTitle);
+    Navigator.of(context).pop();
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -33,11 +47,12 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.onBackground,
                 )),
+            const ImageInput(),
             const SizedBox(
               height: 16,
             ),
             ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: savePlace,
                 icon: const Icon(Icons.add),
                 label: const Text("Add Place"))
           ],
