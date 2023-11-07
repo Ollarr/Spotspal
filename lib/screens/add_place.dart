@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spotspal/providers/user_places.dart';
 import 'package:spotspal/widgets/image_input.dart';
+import 'package:spotspal/widgets/location_input.dart';
 
 class AddPlaceScreen extends ConsumerStatefulWidget {
   const AddPlaceScreen({super.key});
@@ -58,6 +59,10 @@ class _AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                 selectedImage = image;
               },
             ),
+            const SizedBox(
+              height: 16,
+            ),
+            const LocationInput(),
             const SizedBox(
               height: 16,
             ),
